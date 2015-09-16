@@ -57,5 +57,5 @@ plan.remote(function(remote) {
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/'+appName, {user: username});
   remote.exec('forever stop '+foreverUid, {failsafe: true});
-  remote.exec('cd /home/'+username+'/'+appName+' && forever start --uid "'+foreverUid+'" --append '+startFile);
+  remote.exec('cd /home/'+username+'/'+appName+' && source .env && forever start --uid "'+foreverUid+'" --append '+startFile);
 });
