@@ -44,7 +44,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-mongoose.connect('mongodb://localhost/gcvanalytics');
+//mongoose.connect('mongodb://localhost/gcvanalytics');
+mongoose.connect('gcvauser:Magg13m0@ds059712.mongolab.com:59712/gcvanalytics');
 
 app.use('/', routes);
 app.use('/contact', contact);

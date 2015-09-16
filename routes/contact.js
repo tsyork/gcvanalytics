@@ -20,16 +20,10 @@ router.post('/', function(req, res) {
     if(err){
       console.log("db error in POST /contact:" + err);
     } else {
-      res.send('message sent');
+      if (!req.user || req.user.status !== 'ENABLED') {
+        res.redirect('dashboard');
+      } else
+        return res.redirect('/');
     }
   });
-  //var msg1 = new Message({
-  //  topic : req.body.topic,
-  //  subject : req.body.subject,
-  //  comment : req.body.comment
-  //});
-  //
-  //msg1.save(function(err) {
-  //  if (err) return handleError(err);
-  //});
 });

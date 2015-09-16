@@ -20,17 +20,7 @@ router.post('/', function(req, res) {
     if(err){
       console.log("db error in POST /support:" + err);
     } else {
-      res.send('ticket submitted');
+      res.redirect('dashboard');
     }
   });
-  //res.status(404).send('tried to send support ticket');
-  //var msg1 = new Message({
-  //  topic : req.body.topic,
-  //  subject : req.body.subject,
-  //  comment : req.body.comment
-  //});
-  //
-  //msg1.save(function(err) {
-  //  if (err) return handleError(err);
-  //});
 });

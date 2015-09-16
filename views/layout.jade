@@ -36,12 +36,14 @@ html
           ul.nav.navbar-nav.navbar-right
             li
               a(href='/contact') Contact Us
-            li
-              a(href='#') About
             if user
+              li
+                a(href='/support') Support
               li
                 a(href='/logout') Logout
             else
+              li
+                a(href='/about') About
               li
                 a(href='/login') Sign In
     block body
