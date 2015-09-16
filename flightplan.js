@@ -5,7 +5,7 @@ var plan = require('flightplan');
 
 var appName = 'gcvanalytics_dev';
 var username = 'deploy';
-var startFile = './bin/www.js';
+var startFile = 'app.js';
 var foreverUid = 'dev';
 
 var tmpDir = appName+'-' + new Date().getTime();
