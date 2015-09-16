@@ -1,7 +1,6 @@
 extends layout
 
 block body
-  nav.navbar.navbar-default
   .row
     .container-fluid
       div.col-md-1
@@ -11,8 +10,8 @@ block body
               i.fa.fa-home.fa-fw.fa-2x
               |   Home
           li
-            a#investors(href='#', data-toggle='tab', onclick="switchView('Deals Landing Page')")
-              i.fa.fa-institution.fa-fw.fa-2x
+            a#deals(href='#', data-toggle='tab', onclick="switchView('Deals Landing Page')")
+              i.fa.fa-money.fa-fw.fa-2x
               |   Deals
           li
             a#investors(href='#', data-toggle='tab', onclick="switchView('Investor Landing Page')")
