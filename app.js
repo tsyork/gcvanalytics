@@ -17,7 +17,9 @@ var support = require('./routes/support');
 var dashboard = require('./routes/dashboard');
 var login = require('./routes/login');
 var about = require('./routes/about');
+var useCases = require('./routes/use_cases');
 var terms = require('./routes/terms');
+var features = require('./routes/features');
 
 var app = express();
 var strategy = new StormpathStrategy();
@@ -54,6 +56,8 @@ app.use('/dashboard', dashboard);
 app.use('/login', login);
 app.use('/about', about);
 app.use('/terms', terms);
+app.use('/use_cases', useCases);
+app.use('/features', features);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

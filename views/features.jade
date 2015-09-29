@@ -1,0 +1,54 @@
+extends layout
+
+block body
+  .container-fluid
+    .row
+      a(name='geo')
+      .col-md-7
+        img.img-responsive.img-rounded(src='images/geoactivity.png', alt='', style='border: 2px solid black')
+      .col-md-5
+        h1 Activity by Geography
+        p.medium
+          | Geo activity description
+    .row
+      br
+    .row
+      a(name='deals')
+      .col-md-5
+        h1 Deal Counts
+        p.medium
+          | deal counts description
+      .col-md-7
+        img.img-responsive.img-rounded(src='images/dealcount.png', alt='', style='border: 2px solid black')
+    .row
+      br
+    .row
+      .col-md-7
+        img.img-responsive.img-rounded(src='images/export_highlight.png', alt='', style='border: 2px solid black')
+      .col-md-5
+        h1 Export Data
+        p.medium
+          | export description
+    .row
+      br
+    .row
+      .col-md-5
+        h1 Round Analysis
+        p.medium
+          | round analysis description
+      .col-md-7
+        img.img-responsive.img-rounded(src='images/roundsize.png', alt='', style='border: 2px solid black')
+    .row
+      br
+    .row
+      .col-md-7
+        img.img-responsive.img-rounded(src='images/search.png', alt='', style='border: 2px solid black')
+      .col-md-5
+        h1 Powerful Search Capabilities
+        p.medium
+          | search description
+
+  include footer.jade
+
+  div &nbsp;
+  div &nbsp;
