@@ -10,6 +10,7 @@ var demoRequestSchema = new Schema({
   pref_date: { type: Date, required: false, unique: false },
   pref_time: { type: String, required: false, unique: false },
   email: { type: String, required: false, unique: false },
+  newsletter: { type: Boolean, required: false, unique: false },
   phone_number: { type: String, required: false, unique: false },
   created_at: { type: Date, required: false, unique: false },
   updated_at: { type: Date, required: false, unique: false }
@@ -17,7 +18,7 @@ var demoRequestSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var DemoRequest = mongoose.model('DemoRequest', messageSchema);
+var DemoRequest = mongoose.model('DemoRequest', demoRequestSchema);
 
 // make this available to our users in our Node applications
 module.exports = DemoRequest;

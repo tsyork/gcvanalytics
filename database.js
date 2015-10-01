@@ -36,11 +36,10 @@ var demoRequestSchema = new Schema({
   subscriptions: { type: String, required: false, unique: false },
   other_info: { type: String, required: false, unique: false },
   pref_date: { type: Date, required: false, unique: false },
-  pref_time: { type: String, required: false, unique: false },
   email: { type: String, required: false, unique: false },
   phone_number: { type: String, required: false, unique: false },
-  created_at: { type: Date, required: false, unique: false },
-  updated_at: { type: Date, required: false, unique: false }
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now }
 });
 
 // the schemas are useless so far

@@ -3,27 +3,19 @@
  */
 var plan = require('flightplan');
 
+var appName = 'gcvanalytics_dev';
 var username = 'deploy';
 var startFile = 'app.js';
+var foreverUid = 'dev';
+
+var tmpDir = appName+'-' + new Date().getTime();
 
 // configuration
 plan.target('staging', [
   {
     host: '70.35.194.136',
     username: username,
-    agent: process.env.SSH_AUTH_SOCK,
-    appName: 'gcvanalytics_stg',
-    foreverUid: 'stg'
-  }
-]);
-
-plan.target('dev', [
-  {
-    host: '70.35.194.136',
-    username: username,
-    agent: process.env.SSH_AUTH_SOCK,
-    appName: 'gcvanalytics_dev',
-    foreverUid: 'dev'
+    agent: process.env.SSH_AUTH_SOCK
   }
 ]);
 
@@ -31,9 +23,7 @@ plan.target('production', [
   {
     host: '70.35.194.136',
     username: username,
-    agent: process.env.SSH_AUTH_SOCK,
-    appName: 'gcvanalytics',
-    foreverUid: 'prod'
+    agent: process.env.SSH_AUTH_SOCK
   },
 //add in another server if you have more than one
 // {
@@ -57,10 +47,6 @@ plan.local(function(local) {
 
 // run commands on remote hosts (destinations)
 plan.remote(function(remote) {
-  var appName = plan.runtime.options.appName;
-  var foreverUid = plan.runtime.options.foreverUid;
-  var tmpDir = appName+'-' + new Date().getTime();
-
   remote.log('Move folder to root');
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
   remote.rm('-rf /tmp/' + tmpDir);
