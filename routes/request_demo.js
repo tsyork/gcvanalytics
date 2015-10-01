@@ -21,7 +21,7 @@ router.post('/', function(req, res) {
       console.log("db error in POST /request_demo:" + err);
     } else {
       if (!req.user || req.user.status !== 'ENABLED') {
-        res.redirect('/request_demo_thanks');
+        res.redirect('/thanks');
       } else
         return res.redirect('/');
     }

@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 /* GET form. */
 router.get('/', function(req, res) {
   res.render(
-      'request_demo_thanks',
+      'thanks',
       {title : 'Thank You'}
   );
 });

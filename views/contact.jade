@@ -6,23 +6,37 @@ block body
     h1 Contact Us
     p.lead What's on your mind?
     br
-    form(role='form', method="post", action="/contact", style='max-width: 600px;')
+    form.form-horizontal(role='form', method="post", action="/request_demo")
       .form-group
-        select#topic.form-control(name="topic", placeholder='Select topic')
-          option Please select a topic
-          option Request Two Week Trial
-          option Request Quote
-          option Ask a Question
+        label.control-label.col-sm-2 Topic:
+        .col-sm-10
+          select#topic.form-control(name="topic", placeholder='Select topic')
+            option Please select a topic from the drop-down list...
+            option Request Quote
+            option Ask a Question
+            option Provide Feedback
       .form-group
-        input.form-control(type='text', name="subject", placeholder='Enter subject')
+        label.control-label.col-sm-2 Subject:
+        .col-sm-10
+          input.form-control(type='text', name="subject", placeholder='Please enter subject here.')
       .form-group
-        textarea#comment.form-control(name="comment", rows=5, placeholder='Please enter detailed description...')
+        label.control-label.col-sm-2 Comment/Question:
+        .col-sm-10
+          textarea#comment.form-control(name="comment", rows=5, placeholder='What would you like to say?')
       .form-group
-        input#email.form-control(name="email", placeholder='Email address where we can reach you.')
-      button.btn.btn-default(type='submit') Submit
-      &nbsp;
-      a(href='/dashboard')
-        button.btn.btn-primary(type="button") Cancel
+        label.control-label.col-sm-2(for='email') Email:
+        .col-sm-10
+          input#email.form-control(type='email', name="email", placeholder='What is the best email address for us to contact you?')
+      .form-group
+        .col-sm-offset-2.col-sm-2
+          button.btn.btn-default(type='submit') Submit
+          a(href='/')
+            button.btn.btn-primary(type="button") Cancel
+        .col-sm-8
+          .checkbox
+            label
+              input(type='checkbox', name='newsletter')
+              |  Please add me to the GCV newsletter mailing list.
 br
 h4= info
 
