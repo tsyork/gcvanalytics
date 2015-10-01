@@ -13,6 +13,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var contact = require('./routes/contact');
+var requestDemo = require('./routes/request_demo');
 var support = require('./routes/support');
 var dashboard = require('./routes/dashboard');
 var login = require('./routes/login');
@@ -46,11 +47,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//mongoose.connect('mongodb://localhost/gcvanalytics');
-mongoose.connect('gcvauser:Magg13m0@ds059712.mongolab.com:59712/gcvanalytics');
+mongoose.connect('mongodb://localhost/gcvanalytics');
+//mongoose.connect('gcvauser:Magg13m0@ds059712.mongolab.com:59712/gcvanalytics');
 
 app.use('/', routes);
 app.use('/contact', contact);
+app.use('/request_demo', requestDemo);
 app.use('/support', support);
 app.use('/dashboard', dashboard);
 app.use('/login', login);

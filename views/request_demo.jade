@@ -1,0 +1,23 @@
+extends layout
+block body
+  .container
+    br
+    br
+    h1 Request a Product Demonstration
+    br
+    form(role='form', method="post", action="/request_demo", style='max-width: 600px;')
+      .form-group
+        input.form-control(type='text', name="priorities", rows=5, placeholder='What are your key priorities and areas of focus for using a venture data product?')
+      .form-group
+        input.form-control(type='text', name="subscriptions", rows=5, placeholder='Have you, or do you currently subscribe to other venture data products?')
+      .form-group
+        textarea#subscriptions.form-control(name="other_info", rows=5, placeholder='Please enter any additional information that would help us better understand your needs.')
+      .form-group
+        input#email.form-control(name="email", placeholder='Please provide an email address where we can reach you.')
+      button.btn.btn-default(type='submit') Submit
+      &nbsp;
+      a(href='/')
+        button.btn.btn-primary(type="button") Cancel
+br
+h4= info
+
