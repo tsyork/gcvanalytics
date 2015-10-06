@@ -12,16 +12,23 @@ var flash = require('connect-flash');
 var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
+
+//public routes
 var contact = require('./routes/contact');
 var requestDemo = require('./routes/request_demo');
 var thanks = require('./routes/thanks');
-var support = require('./routes/support');
-var dashboard = require('./routes/dashboard');
 var login = require('./routes/login');
-var about = require('./routes/about');
 var useCases = require('./routes/use_cases');
 var terms = require('./routes/terms');
 var features = require('./routes/features');
+
+//app routes
+var support = require('./routes/support');
+var dashboard = require('./routes/dashboard');
+var about = require('./routes/about');
+
+//admin routes
+var demoRequestDtl = require('./routes/demo_request_dtl');
 
 var app = express();
 var strategy = new StormpathStrategy();
@@ -52,16 +59,24 @@ mongoose.connect('mongodb://localhost/gcvanalytics');
 //mongoose.connect('gcvauser:Magg13m0@ds059712.mongolab.com:59712/gcvanalytics');
 
 app.use('/', routes);
+
+//public views
 app.use('/contact', contact);
 app.use('/request_demo', requestDemo);
 app.use('/thanks', thanks);
-app.use('/support', support);
-app.use('/dashboard', dashboard);
 app.use('/login', login);
 app.use('/about', about);
 app.use('/terms', terms);
 app.use('/use_cases', useCases);
 app.use('/features', features);
+
+//app views
+app.use('/support', support);
+app.use('/dashboard', dashboard);
+
+//admin views
+app.use('/demo_request_dtl', demoRequestDtl);
+app.use('/create', demoRequestDtl);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Message = mongoose.model('demo_request');
+var DemoRequest = mongoose.model('demo_request');
 
 /* GET the routed object. */
 router.get('/', function(req, res) {
@@ -16,7 +16,7 @@ module.exports = router;
 /* POST form. */
 router.post('/', function(req, res) {
   console.log(req.body);
-  Message.create(req.body, function(err,post){
+  DemoRequest.create(req.body, function(err,post){
     if(err){
       console.log("db error in POST /request_demo:" + err);
     } else {
