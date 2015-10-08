@@ -9,10 +9,20 @@ var DemoRequest = mongoose.model('demo_request');
 /* GET form. */
 router.get('/', function(req, res) {
     DemoRequest.find(function (err, demo_requests) {
-        console.log(demo_requests)
-        res.render(
-            'demo_request_dtl',
-            {title: 'Demo Request Detail', demo_request : demo_requests}
+        res.send(
+          demo_requests
+        );
+        //res.render(
+        //    'demo_request_dtl',
+        //    {title: 'Demo Request Detail', demo_request : demo_requests}
+        //);
+    });
+});
+
+router.get('/:demoRequestId', function(req, res) {
+    DemoRequest.find({_id: req.params.demoRequestId}, function (err, demo_requests) {
+        res.send(
+            demo_requests
         );
     });
 });

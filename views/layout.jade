@@ -61,9 +61,15 @@ html
             }
           ul.nav.navbar-nav.navbar-right
             li
+              a(href='/')
+                navfont Home
+            li
               a(href='/contact')
                 navfont Contact Us
             if user
+              li
+                a(href='/dashboard')
+                  navfont Dashboard
               li
                 a(href='/support')
                   navfont Support
