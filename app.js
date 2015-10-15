@@ -1,4 +1,3 @@
-require('./database.js');
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -10,6 +9,13 @@ var StormpathStrategy = require('passport-stormpath');
 var session = require('express-session');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
+
+//database objects
+var db = require('./models/database'),
+    blob = require('./models/blobs'),
+    demo_request = require('./models/demo_requests'),
+    ticket = require('./models/tickets'),
+    message = require('./models/messages');
 
 var routes = require('./routes/index');
 
@@ -28,7 +34,11 @@ var dashboard = require('./routes/dashboard');
 var about = require('./routes/about');
 
 //admin routes
-var demoRequestDtl = require('./routes/demo_request_dtl');
+var demo_requests = require('./routes/demo_requests')
+var demoRequestDtl = require('./routes/demo_request_dtl'); //TODO: delete after demo_requests complete
+
+//test routes
+var blobs = require('./routes/blobs');
 
 var app = express();
 var strategy = new StormpathStrategy();
@@ -55,7 +65,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-mongoose.connect('mongodb://localhost/gcvanalytics');
 //mongoose.connect('gcvauser:Magg13m0@ds059712.mongolab.com:59712/gcvanalytics');
 
 app.use('/', routes);
@@ -75,8 +84,12 @@ app.use('/support', support);
 app.use('/dashboard', dashboard);
 
 //admin views
-app.use('/demo_request_dtl', demoRequestDtl);
-app.use('/create', demoRequestDtl);
+app.use('/demo_requests', demo_requests);
+app.use('/demo_request_dtl', demoRequestDtl); //TODO: delete after "demo_requests" functionlity in place
+app.use('/create', demoRequestDtl); //TODO: delete when new demo_requests complete
+
+//test views
+app.use('/blobs', blobs);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -108,5 +121,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-app.listen(9000);
+app.listen(3000);
 module.exports = app;

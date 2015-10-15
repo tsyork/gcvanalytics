@@ -5,12 +5,12 @@ html
     meta(content='IE=edge', http-equiv='X-UA-Compatible')
     meta(content='width=device-width, initial-scale=1', name='viewport')
     title= 'GCV Analytics | ' + title
-    link(href='bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
-    link(href='eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
-    link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
+    link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
 
-    link(href='css/custom.css', rel='stylesheet')
-    link(href='css/small-business-gcv.css', rel='stylesheet')
+    link(href='/css/custom.css', rel='stylesheet')
+    link(href='/css/small-business-gcv.css', rel='stylesheet')
 
     link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet' type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans', rel='stylesheet' type='text/css')
@@ -18,7 +18,7 @@ html
     link(href='https://fonts.googleapis.com/css?family=Oswald', rel='stylesheet' type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Alegreya+SC:400,700', rel='stylesheet' type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700', rel='stylesheet' type='text/css')
-    link(href="images/favicon.ico", rel="shortcut icon", type='image/x-icon')
+    link(href="/images/favicon.ico", rel="shortcut icon", type='image/x-icon')
 
     <!--[if lt IE 9 ]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -42,10 +42,10 @@ html
               tr
                 th
                   a(href='http://www.globalcorporateventuring.com', target='_blank')
-                    img(src='images/GCVAnalytics.png', style='max-width: 200px; margin-bottom: 5px; ')
+                    img(src='/images/GCVAnalytics.png', style='max-width: 200px; margin-bottom: 5px; ')
                 th
                   a(href='http://www.qbixanalytics.com', target='_blank')
-                    img(src='images/qbixpowered.png', style='max-width: 150px; margin-bottom: 5px;')
+                    img(src='/images/qbixpowered.png', style='max-width: 150px; margin-bottom: 5px;')
         //a.navbar-brand(href='http://www.globalcorporateventuring.com', title='GCV Analytics')
         //  img(style='max-width:200px;', src='images/GCVAnalytics.png')
         //a.navbar-brand(href='http://www.qbixanalytics.com', title='QBIX Analytics')
@@ -78,7 +78,7 @@ html
                   navfont Logout
             else
               li
-                a(href='/request_demo')
+                a(href='/demo_requests/new')
                   navfont Request Demo
               li
                 a(href='/about')
@@ -89,9 +89,9 @@ html
     block body
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
-    script(type='text/javascript', src='moment/min/moment.min.js')
-    script(src='bootstrap/dist/js/bootstrap.min.js')
-    script(type='text/javascript', src='eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+    script(type='text/javascript', src='/moment/min/moment.min.js')
+    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript', src='/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
     script(type='text/javascript', src='https://online.tableau.com/javascripts/api/tableau-2.0.0.js')
     script(type='text/javascript').
       $(function () {
