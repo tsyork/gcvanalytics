@@ -10,6 +10,10 @@ block body
     br
     form.form-horizontal(role='form', method="post", action="/request_demo")
       .form-group
+        label.control-label.col-sm-2 Name:
+        .col-sm-10
+          input.form-control(type='text', name="priorities", rows=5, placeholder='')
+      .form-group
         label.control-label.col-sm-2 Focus Area(s):
         .col-sm-10
           input.form-control(type='text', name="priorities", rows=5, placeholder='What are your key priorities and areas of focus for using a venture data product?')

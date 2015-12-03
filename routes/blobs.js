@@ -7,9 +7,6 @@ var express = require('express'),
     bodyParser = require('body-parser'), //parses information from POST
     methodOverride = require('method-override'); //used to manipulate POST
 
-var extend = require('xtend');
-var request = require('request');
-
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(methodOverride(function(req, res){
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -18,32 +15,28 @@ router.use(methodOverride(function(req, res){
         delete req.body._method
         return method
     }
-}));
+}))
 
-//build the REST operations at the base for demo_requests
-//this will be accessible from http://127.0.0.1:3000/demo_requests if the default route for / is left unchanged
+//build the REST operations at the base for blobs
+//this will be accessible from http://127.0.0.1:3000/blobs if the default route for / is left unchanged
 router.route('/')
-    //GET all demo_requests
+    //GET all blobs
     .get(function(req, res, next) {
-        //console.log(req.user.email);
-        //if (req.user.customData.isAdministrator !== 'TRUE') {
-        //    return res.redirect('/login');
-        //}
-        //retrieve all demo_requests from Mongo
-        mongoose.model('demo_request').find({}, function (err, demo_requests) {
+        //retrieve all blobs from Monogo
+        mongoose.model('Blob').find({}, function (err, blobs) {
             if (err) {
                 return console.error(err);
             } else {
                 //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //HTML response will render the index.jade file in the views/demo_requests folder. We are also setting "demo_requests" to be an accessible variable in our jade view
+                    //HTML response will render the index.jade file in the views/blobs folder. We are also setting "blobs" to be an accessible variable in our jade view
                     html: function(){
-                        res.render('demo_requests/index', {
-                            title: 'Requests for Demos',
-                            "demo_requests" : demo_requests
+                        res.render('blobs/index', {
+                            title: 'All my Blobs',
+                            "blobs" : blobs
                         });
                     },
-                    //JSON response will show all demo_requests in JSON format
+                    //JSON response will show all blobs in JSON format
                     json: function(){
                         res.json(infophotos);
                     }
@@ -51,58 +44,53 @@ router.route('/')
             }
         });
     })
-    //POST a new demo_request
+    //POST a new blob
     .post(function(req, res) {
         // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
-        var email = req.body.email;
-        var other_info = req.body.other_info;
-        var pref_date = req.body.pref_date;
-        var subscriptions = req.body.subscriptions;
-        var newsletter = req.body.newsletter;
-        var priorities = req.body.priorities;
-        //var name = req.body.name;
+        var name = req.body.name;
+        var badge = req.body.badge;
+        var dob = req.body.dob;
         var company = req.body.company;
-        var first_name = req.body.first_name;
-        var last_name = req.body.last_name;
-        var country = req.body.country;
-        var phone_number = req.body.phone_number;
-
+        var isloved = req.body.isloved;
         //call the create function for our database
-        mongoose.model('demo_request').create({
-            email : email,
-            other_info : other_info,
-            pref_date : pref_date,
-            subscriptions : subscriptions,
-            newsletter : newsletter,
-            priorities : priorities,
-            //name : name,
-            company : company,
-            first_name : first_name,
-            last_name : last_name,
-            country : country,
-            phone_number : phone_number
-        }, function (err, demo_request) {
+        mongoose.model('Blob').create({
+            name : name,
+            badge : badge,
+            dob : dob,
+            isloved : isloved
+        }, function (err, blob) {
             if (err) {
-                res.send(err);
+                res.send("There was a problem adding the information to the database.");
             } else {
-                if (!req.user || req.user.status !== 'ENABLED') {
-                    res.redirect('/thanks');
-                } else
-                    return res.redirect('/');
+                //Blob has been created
+                console.log('POST creating new blob: ' + blob);
+                res.format({
+                    //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
+                    html: function(){
+                        // If it worked, set the header so the address bar doesn't still say /adduser
+                        res.location("blobs");
+                        // And forward to success page
+                        res.redirect("/blobs");
+                    },
+                    //JSON response will show the newly created blob
+                    json: function(){
+                        res.json(blob);
+                    }
+                });
             }
         })
     });
 
 /* GET New Blob page. */
 router.get('/new', function(req, res) {
-    res.render('demo_requests/new', { title: 'Add New Demo Request' });
+    res.render('blobs/new', { title: 'Add New Blob' });
 });
 
 // route middleware to validate :id
 router.param('id', function(req, res, next, id) {
     //console.log('validating ' + id + ' exists');
     //find the ID in the Database
-    mongoose.model('demo_request').findById(id, function (err, demo_request) {
+    mongoose.model('Blob').findById(id, function (err, blob) {
         //if it isn't found, we are going to repond with 404
         if (err) {
             console.log(id + ' was not found');
@@ -120,7 +108,7 @@ router.param('id', function(req, res, next, id) {
             //if it is found we continue on
         } else {
             //uncomment this next line if you want to see every JSON document response for every GET/PUT/DELETE call
-            //console.log(demo_request);
+            //console.log(blob);
             // once validation is done save the new item in the req
             req.id = id;
             // go to the next thing
@@ -129,88 +117,79 @@ router.param('id', function(req, res, next, id) {
     });
 });
 
-//get an existing demo_request and render show.jade
+//get an existing blob and render show.jade
 router.route('/:id')
     .get(function(req, res) {
-        mongoose.model('demo_request').findById(req.id, function (err, demo_request) {
+        mongoose.model('Blob').findById(req.id, function (err, blob) {
             if (err) {
                 console.log('GET Error: There was a problem retrieving: ' + err);
             } else {
-                console.log('GET Retrieving ID: ' + demo_request._id);
+                console.log('GET Retrieving ID: ' + blob._id);
+                var blobdob = blob.dob.toISOString();
+                blobdob = blobdob.substring(0, blobdob.indexOf('T'))
                 res.format({
                     html: function(){
-                        res.render('demo_requests/show', {
-                            "demo_request" : demo_request
+                        res.render('blobs/show', {
+                            "blobdob" : blobdob,
+                            "blob" : blob
                         });
                     },
                     json: function(){
-                        res.json(demo_request);
+                        res.json(blob);
                     }
                 });
             }
         });
     });
 
-//GET the individual demo_request by Mongo ID for editing
+//GET the individual blob by Mongo ID for editing
 router.get('/:id/edit', function(req, res) {
-    //search for the demo_request within Mongo
-    mongoose.model('demo_request').findById(req.id, function (err, demo_request) {
+    //search for the blob within Mongo
+    mongoose.model('Blob').findById(req.id, function (err, blob) {
         if (err) {
             console.log('GET Error: There was a problem retrieving: ' + err);
         } else {
-            //Return the demo_request
-            console.log('GET Retrieving ID: ' + demo_request._id);
+            //Return the blob
+            console.log('GET Retrieving ID: ' + blob._id);
             //format the date properly for the value to show correctly in our edit form
+            var blobdob = blob.dob.toISOString();
+            blobdob = blobdob.substring(0, blobdob.indexOf('T'))
             res.format({
                 //HTML response will render the 'edit.jade' template
                 html: function(){
-                    res.render('demo_requests/edit', {
-                        title: 'demo_request' + demo_request._id,
-                        "demo_request" : demo_request
+                    res.render('blobs/edit', {
+                        title: 'Blob' + blob._id,
+                        "blobdob" : blobdob,
+                        "blob" : blob
                     });
                 },
                 //JSON response will return the JSON output
                 json: function(){
-                    res.json(demo_request);
+                    res.json(blob);
                 }
             });
         }
     });
 });
 
-//PUT to update a demo_request by ID
+//PUT to update a blob by ID
 router.put('/:id/edit', function(req, res) {
     // Get our REST or form values. These rely on the "name" attributes
-    var email = req.body.email;
-    var other_info = req.body.other_info;
-    var pref_date = req.body.pref_date;
-    var subscriptions = req.body.subscriptions;
-    var newsletter = req.body.newsletter;
-    var priorities = req.body.priorities;
-    //var name = req.body.name;
+    var name = req.body.name;
+    var badge = req.body.badge;
+    var dob = req.body.dob;
     var company = req.body.company;
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
-    var country = req.body.country;
-    var phone_number = req.body.phone_number;
+    var isloved = req.body.isloved;
 
     //find the document by ID
-    mongoose.model('demo_request').findById(req.id, function (err, demo_request) {
+    mongoose.model('Blob').findById(req.id, function (err, blob) {
         //update it
-        demo_request.update({
-            email : email,
-            other_info : other_info,
-            pref_date : pref_date,
-            subscriptions : subscriptions,
-            newsletter : newsletter,
-            priorities : priorities,
-            //name : name,
-            company : company,
-            first_name : first_name,
-            last_name : last_name,
-            country : country,
-            phone_number : phone_number
-        }, function (err, demo_requestID) {
+        blob.update({
+            name : name,
+            badge : badge,
+            dob : dob,
+            isloved : isloved
+        }, function (err, blobID) {
             if (err) {
                 res.send("There was a problem updating the information to the database: " + err);
             }
@@ -218,11 +197,11 @@ router.put('/:id/edit', function(req, res) {
                 //HTML responds by going back to the page or you can be fancy and create a new view that shows a success page.
                 res.format({
                     html: function(){
-                        res.redirect("/demo_requests/" + demo_request._id);
+                        res.redirect("/blobs/" + blob._id);
                     },
                     //JSON responds showing the updated values
                     json: function(){
-                        res.json(demo_request);
+                        res.json(blob);
                     }
                 });
             }
@@ -230,29 +209,29 @@ router.put('/:id/edit', function(req, res) {
     });
 });
 
-//DELETE a Demo Request by ID
+//DELETE a Blob by ID
 router.delete('/:id/edit', function (req, res){
-    //find demo_request by ID
-    mongoose.model('demo_request').findById(req.id, function (err, demo_request) {
+    //find blob by ID
+    mongoose.model('Blob').findById(req.id, function (err, blob) {
         if (err) {
             return console.error(err);
         } else {
             //remove it from Mongo
-            demo_request.remove(function (err, demo_request) {
+            blob.remove(function (err, blob) {
                 if (err) {
                     return console.error(err);
                 } else {
                     //Returning success messages saying it was deleted
-                    console.log('DELETE removing ID: ' + demo_request._id);
+                    console.log('DELETE removing ID: ' + blob._id);
                     res.format({
                         //HTML returns us back to the main page, or you can create a success page
                         html: function(){
-                            res.redirect("/demo_requests");
+                            res.redirect("/blobs");
                         },
                         //JSON returns the item with the message that is has been deleted
                         json: function(){
                             res.json({message : 'deleted',
-                                item : demo_request
+                                item : blob
                             });
                         }
                     });
@@ -261,6 +240,5 @@ router.delete('/:id/edit', function (req, res){
         }
     });
 });
-
 
 module.exports = router;

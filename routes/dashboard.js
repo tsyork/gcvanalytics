@@ -10,8 +10,8 @@ router.get('/', function (req, res, locals) {
   }
 
   var tableauUser = req.user.email;
-  console.log(tableauUser);
   console.log(req.user);
+  console.log(req.user.customData.isAdministrator);
 
   request.post({url:'http://70.35.194.136:9001/api/tickets', form:{email:tableauUser}}, function optionalCallback(err, httpResponse, body) {
     if (err) {

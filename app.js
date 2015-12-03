@@ -32,6 +32,7 @@ var features = require('./routes/features');
 var support = require('./routes/support');
 var dashboard = require('./routes/dashboard');
 var about = require('./routes/about');
+var pricing = require('./routes/pricing');
 
 //admin routes
 var demo_requests = require('./routes/demo_requests')
@@ -41,7 +42,9 @@ var demoRequestDtl = require('./routes/demo_request_dtl'); //TODO: delete after 
 var blobs = require('./routes/blobs');
 
 var app = express();
-var strategy = new StormpathStrategy();
+var strategy = new StormpathStrategy({
+    expansions: 'customData'
+});
 
 passport.use(strategy);
 passport.serializeUser(strategy.serializeUser);
@@ -75,6 +78,7 @@ app.use('/request_demo', requestDemo);
 app.use('/thanks', thanks);
 app.use('/login', login);
 app.use('/about', about);
+app.use('/pricing', pricing);
 app.use('/terms', terms);
 app.use('/use_cases', useCases);
 app.use('/features', features);
@@ -121,5 +125,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-app.listen(3000);
+app.listen(1337);
 module.exports = app;

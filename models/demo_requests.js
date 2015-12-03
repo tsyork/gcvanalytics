@@ -16,7 +16,12 @@ var demoRequestSchema = new mongoose.Schema({
     status: {type: String, default: "New", unique: false},
     assigned_to: {type: String, default: "", unique: false},
     demo_datetime: {type: Date, unique: false},
-    notes: {type: String, unique: false}
+    notes: {type: String, unique: false},
+    name: { type: String, required: false, unique: false },
+    company: { type: String, required: false, unique: false },
+    country: { type: String, required: false, unique: false },
+    first_name: { type: String, required: false, unique: false },
+    last_name: { type: String, required: false, unique: false },
 });
 
 mongoose.model('demo_request', demoRequestSchema);
