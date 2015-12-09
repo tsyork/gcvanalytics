@@ -22,6 +22,7 @@ var demoRequestSchema = new mongoose.Schema({
     country: { type: String, required: false, unique: false },
     first_name: { type: String, required: false, unique: false },
     last_name: { type: String, required: false, unique: false },
+    job_title: { type: String, required: false, unique: false }
 });
 
 mongoose.model('demo_request', demoRequestSchema);

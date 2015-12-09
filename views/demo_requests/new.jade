@@ -29,9 +29,9 @@ block body
                 label.control-label.col-sm-2 Company/Organization:
                 .col-sm-4
                     input.form-control(type='text', name="company", rows=5, placeholder='')
-                label.control-label.col-sm-2 Country:
+                label.control-label.col-sm-2 Job Title:
                 .col-sm-4
-                    input.form-control(type='text', name="country", rows=5, placeholder='')
+                    input.form-control(type='text', name="job_title", rows=5, placeholder='')
             .form-group
                 label.control-label.col-sm-2(for='email') Email:
                 .col-sm-4
@@ -39,6 +39,10 @@ block body
                 label.control-label.col-sm-2(for='phone') Phone Number:
                 .col-sm-4
                     input#email.form-control(type='phone', name="phone_number", placeholder='Please provide your phone number with country code.')
+            .form-group
+                label.control-label.col-sm-2 Country:
+                .col-sm-10
+                    input.form-control(type='text', name="country", rows=5, placeholder='')
             .form-group
                 label.control-label.col-sm-2 Focus Area(s):
                 .col-sm-10

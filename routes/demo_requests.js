@@ -66,6 +66,7 @@ router.route('/')
         var last_name = req.body.last_name;
         var country = req.body.country;
         var phone_number = req.body.phone_number;
+        var job_title = req.body.job_title;
 
         //call the create function for our database
         mongoose.model('demo_request').create({
@@ -80,7 +81,8 @@ router.route('/')
             first_name : first_name,
             last_name : last_name,
             country : country,
-            phone_number : phone_number
+            phone_number : phone_number,
+            job_title : job_title
         }, function (err, demo_request) {
             if (err) {
                 res.send(err);
@@ -193,6 +195,7 @@ router.put('/:id/edit', function(req, res) {
     var last_name = req.body.last_name;
     var country = req.body.country;
     var phone_number = req.body.phone_number;
+    var job_title = req.body.job_title;
 
     //find the document by ID
     mongoose.model('demo_request').findById(req.id, function (err, demo_request) {
@@ -209,7 +212,8 @@ router.put('/:id/edit', function(req, res) {
             first_name : first_name,
             last_name : last_name,
             country : country,
-            phone_number : phone_number
+            phone_number : phone_number,
+            job_title : job_title
         }, function (err, demo_requestID) {
             if (err) {
                 res.send("There was a problem updating the information to the database: " + err);
