@@ -28,6 +28,7 @@ var thanks = require('./routes/thanks');
 var useCases = require('./routes/use_cases');
 var terms = require('./routes/terms');
 var features = require('./routes/features');
+//var changePassword = require('./routes/change-password');
 
 //app routes
 var support = require('./routes/support');
@@ -106,6 +107,7 @@ app.use('/pricing', pricing);
 app.use('/terms', terms);
 app.use('/use_cases', useCases);
 app.use('/features', features);
+//app.use('/change-password',changePassword);
 
 //app views
 app.use('/support', support);
@@ -156,5 +158,5 @@ app.get('/', function(req, res) {
     });
 });
 
-app.listen(1337);
+app.listen(9000);
 module.exports = app;
